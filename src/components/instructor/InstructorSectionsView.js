@@ -1,18 +1,9 @@
-<<<<<<< HEAD
-import React, {useState, useEffect} from 'react';
-import SectionUpdate from "../admin/SectionUpdate";
-import Button from "@mui/material/Button";
-import SectionAdd from "../admin/SectionAdd";
-import {SERVER_URL} from "../../Constants";
-import {Link} from "react-router-dom";
-=======
 import React, { useState, useEffect } from 'react';
 import SectionUpdate from "../admin/SectionUpdate";
 import Button from "@mui/material/Button";
 import SectionAdd from "../admin/SectionAdd";
 import { SERVER_URL } from "../../Constants";
 import { Link, useLocation } from "react-router-dom";
->>>>>>> ae0d34e4ef8521046c5839c56699161802f2a97e
 
 // instructor views a list of sections they are teaching
 // use the URL /sections?email=dwisneski@csumb.edu&year= &semester=
@@ -32,13 +23,6 @@ const InstructorSectionsView = (props) => {
 
     const [message, setMessage] = useState('');
 
-<<<<<<< HEAD
-    const fetchSections = async () => {
-        try {
-            const response = await fetch(`${SERVER_URL}/sections?email=dwisneski@csumb.edu&year= &semester= `);
-            if (response.ok) {
-                const data = await response.json();
-=======
     const location = useLocation();
 
     const section = location.state; // Retained from the HEAD branch
@@ -49,23 +33,12 @@ const InstructorSectionsView = (props) => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Sections data received from server:', data);
->>>>>>> ae0d34e4ef8521046c5839c56699161802f2a97e
                 setSections(data);
             } else {
                 const rc = await response.json();
                 setMessage(rc.message);
             }
         } catch(err) {
-<<<<<<< HEAD
-            setMessage("network error: "+err);
-        }
-    }
-
-    return(
-        <div>
-            <h3>Sections</h3>
-
-=======
             setMessage("network error: " + err);
         }
     }
@@ -77,33 +50,10 @@ const InstructorSectionsView = (props) => {
     return (
         <div>
             <h3>Sections</h3>
->>>>>>> ae0d34e4ef8521046c5839c56699161802f2a97e
             <h4>{message}</h4>
             <h4>Your current sections</h4>
             <table className="Center" >
                 <thead>
-<<<<<<< HEAD
-                <tr>
-                    {headers.map((s, idx) => (<th key={idx}>{s}</th>))}
-                </tr>
-                </thead>
-                <tbody>
-                {sections.map((s) => (
-                    <tr key={s.secNo}>
-                        <td>{s.secNo}</td>
-                        <td>{s.courseId}</td>
-                        <td>{s.secId}</td>
-                        <td>{s.building}</td>
-                        <td>{s.room}</td>
-                        <td>{s.times}</td>
-                        <td><Link to="/enrollments" state={s}>View Enrollments</Link></td>
-                        <td><Link to="/assignments" state={s}>View Assignments</Link></td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <SectionAdd  onClose={fetchSections} />
-=======
                     <tr>
                         {headers.map((s, idx) => (<th key={idx}>{s}</th>))}
                     </tr>
@@ -124,7 +74,6 @@ const InstructorSectionsView = (props) => {
                 </tbody>
             </table>
             <SectionAdd onClose={fetchSections} />
->>>>>>> ae0d34e4ef8521046c5839c56699161802f2a97e
         </div>
     );
 }
