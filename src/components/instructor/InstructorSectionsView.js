@@ -5,13 +5,13 @@ import SectionAdd from "../admin/SectionAdd";
 import {SERVER_URL} from "../../Constants";
 import {Link, useLocation} from "react-router-dom";
 
-// instructor views a list of sections they are teaching 
+// instructor views a list of sections they are teaching
 // use the URL /sections?email=dwisneski@csumb.edu&year= &semester=
 // the email= will be removed in assignment 7 login security
 // The REST api returns a list of SectionDTO objects
 // The table of sections contains columns
 //   section no, course id, section id, building, room, times and links to assignments and enrollments
-// hint:  
+// hint:
 // <Link to="/enrollments" state={section}>View Enrollments</Link>
 // <Link to="/assignments" state={section}>View Assignments</Link>
 
@@ -24,11 +24,13 @@ const InstructorSectionsView = (props) => {
     const [message, setMessage] = useState('');
 
     const location = useLocation();
-    const {year, semester} = location.state;
 
+
+    const {term} = location.state;
     const fetchSections = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/sections?email=dwisneski@csumb.edu&year=${year}&semester=${semester}`);
+            const response = await fetch(`${SERVER_URL}/sections?email=dwisneski@csumb.edu&year=${term.year}&semester=${term.semester}`);
+
             if (response.ok) {
                 const data = await response.json();
                 setSections(data);
@@ -40,8 +42,12 @@ const InstructorSectionsView = (props) => {
             setMessage("network error: "+err);
         }
     }
-    useEffect( () => {
-        fetchSections()
+
+
+
+    useEffect(() => {
+        fetchSections();
+
     }, []);
 
     return(
