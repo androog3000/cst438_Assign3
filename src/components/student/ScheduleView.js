@@ -122,7 +122,7 @@ const ScheduleView = (props) => {
                         <td>{e.room}</td>
                         <td>{e.times}</td>
                         <td>{e.credits}</td>
-                        <td><Button onClick={onDelete}>Delete</Button></td>
+                        <td><Button onClick={onDelete}>Drop</Button></td>
                     </tr>
                     ))}
                 </tbody>
