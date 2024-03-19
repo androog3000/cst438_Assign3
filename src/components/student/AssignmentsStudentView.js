@@ -13,18 +13,19 @@ import {SERVER_URL} from '../../Constants';
 
 function AssignmentsStudentView(props){
     // variables and constants
-    const headers = ['Course', 'Section', 'Assignment Title', 'Due Date', 'Score'];
+    const headers = ['Course ID', 'Assignment Title', 'Assignment DueDate', 'Score'];
     const [assignments, setAssignments] = useState([]);
-    const [search, setSearch] = useState({studentId:'3', year:'', semester:''});
+    const [search, setSearch] = useState({year:'', semester:''});
     const [message, setMessage] = useState('');
 
     // receive student assignments from database (i think)
     const fetchAssignments = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/assignments?studentId=${search.studentId}&year=${search.year}&semester=${search.semester}`);
+            const response = await fetch(`${SERVER_URL}/assignments?studentId=3&year=${search.year}&semester=${search.semester}`);
             if (response.ok) {
                 const data = await response.json();
                 setAssignments(data);
+                setMessage("");
             } else {
                 const json = await response.json();
                 setMessage("response error: "+json.message);
@@ -33,9 +34,6 @@ function AssignmentsStudentView(props){
             setMessage("network error: "+err);
         }
     }
-    useEffect( () => {
-        fetchAssignments();
-    }, []);
 
     const editChange = (event) => {
         setSearch({...search,  [event.target.name]:event.target.value});
@@ -47,7 +45,9 @@ function AssignmentsStudentView(props){
             <h3>Student Assignments</h3>
             <h4>{message}</h4>
 
+            {
             //prompt
+            }
             <h4>Enter year and semester. Example: 2024 Spring</h4>
             <table className="Center">
                 <tbody>
@@ -69,7 +69,6 @@ function AssignmentsStudentView(props){
 
             {
             //student assignment table list
-            //define "s" but with student assignments}
             }
             <table className="Center" >
                 <thead>
@@ -81,7 +80,6 @@ function AssignmentsStudentView(props){
                 {assignments.map((a) => (
                     <tr key={a.assignmentId}>
                         <td>{a.courseId}</td>
-                        <td>{a.sectionId}</td>
                         <td>{a.title}</td>
                         <td>{a.dueDate}</td>
                         <td>{a.score}</td>
