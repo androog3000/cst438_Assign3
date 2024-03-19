@@ -25,12 +25,13 @@ const InstructorSectionsView = (props) => {
 
     const location = useLocation();
 
-    const {term} = location.state;
+    const section = location.state;
     const fetchSections = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/sections?email=dwisneski@csumb.edu&year=${term.year}&semester=${term.semester}`);
+            const response = await fetch(`${SERVER_URL}/sections?email=dwisneski@csumb.edu&year=${section.year}&semester=${section.semester}`);
             if (response.ok) {
                 const data = await response.json();
+                console.log('Sections data received from server:', data);
                 setSections(data);
             } else {
                 const rc = await response.json();
