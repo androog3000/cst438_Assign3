@@ -5,6 +5,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import {confirmAlert} from "react-confirm-alert";
 import AssignmentUpdate from "./AssignmentUpdate";
 import {SERVER_URL} from "../../Constants";
+import AssignmentAdd from "./AssignmentAdd";
 
 
 // instructor views assignments for their section
@@ -19,18 +20,13 @@ const AssignmentsView = (props) => {
 
     const location = useLocation();
     const {secNo, courseId, secId} = location.state;
-    /*
-    const [assignments, setAssignments] = useState([
-        {assignmentId: '9' , title: 'Assignment 1', dueDate: '2023-5-08'},
-        {assignmentId: '10' , title: 'Assignment 2', dueDate: '2023-5-09'},
-        {assignmentId: '1' , title: 'Assignment 3', dueDate: '2023-5-10',}]
-    );*/
+
     const [assignments, setAssignments] = useState([]);
     const headers = ['Assignment ID', 'Title', 'Due Date', '', ''];
     const [message, setMessage] = useState('');
     const fetchAssignments = async () =>{
         try{
-            const response = await fetch(`${SERVER_URL}/sections/8/assignments`);
+            const response = await fetch(`${SERVER_URL}/sections/${secNo}/assignments`);
             if (response.ok){
                 const assignments = await response.json()
                 setAssignments(assignments);
@@ -90,10 +86,6 @@ const AssignmentsView = (props) => {
         }
     }
 
-    /*const onSave= (assignment) => {
-        const assignmentsCopy = assignments.map((a) =>(a.assignmentId===assignment.assignmentId) ? assignment : a);
-        setAssignments(assignmentsCopy);
-    }*/
 
     const onSave = async (assignment) =>{
         try {
@@ -107,13 +99,35 @@ const AssignmentsView = (props) => {
                 });
             if (response.ok){
                 setMessage('Assignment added');
-                fetchAssignments();
+                await fetchAssignments();
             } else {
                 const rc = await response.json();
                 setMessage('Save error: ' + rc.message);
             }
         } catch(err) {
             setMessage('Network error: ' + err);
+        }
+    }
+
+    const addAssignment = async (assignment) =>{
+        try{
+            const response = await fetch(`${SERVER_URL}/assignments`,
+                {
+                    method: 'POST',
+                    headers:{
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(assignment)
+                });
+            if(response.ok){
+                setMessage('Assignment added');
+                await fetchAssignments();
+            } else{
+                const rc = await response.json();
+                setMessage('Save error: '+ rc);
+            }
+        } catch (err){
+            setMessage('Networking error: ' +err);
         }
     }
      
@@ -139,7 +153,7 @@ const AssignmentsView = (props) => {
                 )}
                 </tbody>
             </table>
-            Add an assignment
+            <AssignmentAdd sectionNo={secNo} courseId={courseId} sectionId={secId} save={addAssignment}/>
         </>
     );
 }
