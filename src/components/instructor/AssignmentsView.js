@@ -32,7 +32,7 @@ const AssignmentsView = (props) => {
                 setAssignments(assignments);
             } else {
                 const json = await response.json();
-                setMessage('Response error: '+json);
+                setMessage('Response error: '+json.message);
             }
         } catch(err) {
             setMessage('Network Error: ' +err);
@@ -124,7 +124,7 @@ const AssignmentsView = (props) => {
                 await fetchAssignments();
             } else{
                 const rc = await response.json();
-                setMessage('Save error: '+ rc);
+                setMessage('Save error: '+ rc.message);
             }
         } catch (err){
             setMessage('Networking error: ' +err);
