@@ -7,136 +7,71 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { SERVER_URL } from '../../Constants';
 
-const AssignmentUpdate = (props) => {
+const AssignmentUpdate = (props)  => {
+
     const [open, setOpen] = useState(false);
     const [editMessage, setEditMessage] = useState('');
-    const [assignment, setAssignment] = useState({
-        id: '',
-        title: '',
-        dueDate: '',
-        courseId: '',
-        secId: '',
-        secNo: '',
-    });
+    const [assignment, setAssignment] = useState(
+        {id:'', title: '', dueDate: ''});
 
-    /*
-     *  dialog for edit assignment
-     */
-    const editOpen = () => {
+    const editOpen = (event) => {
         setEditMessage('');
-        setAssignment({
-            id: '',
-            title: '',
-            dueDate: '',
-            courseId: '',
-            secId: '',
-            secNo: '',
-        });
+        setAssignment({id: '', title: '', dueDate: ''});
         setOpen(true);
         setAssignment(props.assignment);
     };
 
     const editClose = () => {
         setOpen(false);
-        props.onClose();
+        setAssignment({id: '', title: '', dueDate: ''});
     };
 
     const editChange = (event) => {
-        setAssignment({ ...assignment, [event.target.name]: event.target.value });
-    };
+        setAssignment({...assignment,  [event.target.name]:event.target.value})
+    }
 
     const onSave = () => {
         saveAssignment(assignment);
-    };
+    }
 
     const saveAssignment = async (assignment) => {
         try {
-            const response = await fetch(`${SERVER_URL}/assignments`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(assignment),
-            });
+            const response = await fetch (`${SERVER_URL}/assignments`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(assignment),
+                });
             if (response.ok) {
-                setEditMessage('Assignment saved');
+                setEditMessage("Assignment saved!");
             } else {
                 const rc = await response.json();
-                setEditMessage(rc.message);
+                setEditMessage("Response error: " + rc.message);
             }
         } catch (err) {
-            setEditMessage('Network error: ' + err);
+            setEditMessage("Network error: "+err);
         }
-    };
-
+    }
     return (
-        <div>
+        <>
             <Button onClick={editOpen}>Edit</Button>
-            <Dialog open={open}>
-                <DialogTitle>Edit Assignment</DialogTitle>
-                <DialogContent style={{ paddingTop: 20 }}>
+            <Dialog open={open} >
+                <DialogTitle>Edit Assignments</DialogTitle>
+                <DialogContent  style={{paddingTop: 20}} >
                     <h4>{editMessage}</h4>
-                    <TextField
-                        style={{ padding: 10 }}
-                        fullWidth
-                        label="id"
-                        name="id"
-                        value={assignment.id}
-                        InputProps={{ readOnly: true }}
-                    />
-                    <TextField
-                        style={{ padding: 10 }}
-                        autoFocus
-                        fullWidth
-                        label="title"
-                        name="title"
-                        value={assignment.title}
-                        onChange={editChange}
-                    />
-                    <TextField
-                        style={{ padding: 10 }}
-                        fullWidth
-                        label="dueDate"
-                        name="dueDate"
-                        value={assignment.dueDate}
-                        onChange={editChange}
-                    />
-                    <TextField
-                        style={{ padding: 10 }}
-                        fullWidth
-                        label="courseId"
-                        name="courseId"
-                        value={assignment.courseId}
-                        InputProps={{ readOnly: true }}
-                    />
-                    <TextField
-                        style={{ padding: 10 }}
-                        fullWidth
-                        label="secId"
-                        name="secId"
-                        value={assignment.secId}
-                        InputProps={{ readOnly: true }}
-                    />
-                    <TextField
-                        style={{ padding: 10 }}
-                        fullWidth
-                        label="secNo"
-                        name="secNo"
-                        value={assignment.secNo}
-                        InputProps={{ readOnly: true }}
-                    />
+                    <TextField style={{padding:10}} autoFocus fullWidth label="id" name="id" value={assignment.id}  InputProps={{readOnly: true, }}  />
+                    <TextField style={{padding:10}} fullWidth label="title" name="title" value={assignment.title} onChange={editChange}  />
+                    <TextField style={{padding:10}} fullWidth label="dueDate" name="dueDate" value={assignment.dueDate} onChange={editChange}  />
                 </DialogContent>
                 <DialogActions>
-                    <Button color="secondary" onClick={editClose}>
-                        Close
-                    </Button>
-                    <Button color="primary" onClick={onSave}>
-                        Save
-                    </Button>
+                    <Button color="secondary" onClick={editClose}>Close</Button>
+                    <Button color="primary" onClick={onSave}>Save</Button>
                 </DialogActions>
             </Dialog>
-        </div>
-    );
-};
+        </>
+    )
+}
 
 export default AssignmentUpdate;
