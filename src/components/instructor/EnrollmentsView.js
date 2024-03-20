@@ -134,7 +134,7 @@ const EnrollmentsView = (props) => {
 
     return (
         <>
-            <h3>Assignments</h3>
+            <h3>Enrollments</h3>
             <h4>{message}</h4>
             <table className={'Center'}>
                 <thead>
