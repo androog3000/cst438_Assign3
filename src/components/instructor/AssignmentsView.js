@@ -6,6 +6,7 @@ import {confirmAlert} from "react-confirm-alert";
 import AssignmentUpdate from "./AssignmentUpdate";
 import {SERVER_URL} from "../../Constants";
 import AssignmentAdd from "./AssignmentAdd";
+import AssignmentGrade from "./AssignmentGrade";
 
 
 // instructor views assignments for their section
@@ -147,6 +148,7 @@ const AssignmentsView = (props) => {
                         <td>{a.id}</td>
                         <td>{a.title}</td>
                         <td>{a.dueDate}</td>
+                        <td><AssignmentGrade asgnmtId={a.id} /></td>
                         <td><AssignmentUpdate assignment={a} save={onSave} /></td>
                         <td><Button onClick={deleteAlert}>Delete</Button></td>
                     </tr>
