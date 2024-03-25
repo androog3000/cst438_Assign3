@@ -53,19 +53,19 @@ const AssignmentAdd = (props)  => {
 
     return (
         <>
-            <Button onClick={editOpen}>Add Assignment</Button>
+            <Button id="addAssignment" onClick={editOpen}>Add Assignment</Button>
             <Dialog open={isOpen}>
                 <DialogTitle>Add Assignment</DialogTitle>
                 <DialogContent style={{paddingTop:20}}>
                     <h4>{editMessage}</h4>
-                    <TextField style={{padding:10}} autoFocus fullWidth label={'Title'} name={'title'} value={assignment.title} onChange={editChange} />
+                    <TextField id="addTitle" style={{padding:10}} autoFocus fullWidth label={'Title'} name={'title'} value={assignment.title} onChange={editChange} />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker name={'dueDate'} value={assignment.dueDate} onChange={date => dateChange(date)} label={'Due Date'}  />
+                        <DatePicker id="addDueDate" name={'dueDate'} value={assignment.dueDate} onChange={date => dateChange(date)} label={'Due Date'}  />
                     </LocalizationProvider>
                 </DialogContent>
                 <DialogActions>
                     <Button color={'secondary'} onClick={editClose}>Close</Button>
-                    <Button color={'primary'} onClick={onSave}>Save</Button>
+                    <Button id="save" color={'primary'} onClick={onSave}>Save</Button>
                 </DialogActions>
             </Dialog>
         </>                       
