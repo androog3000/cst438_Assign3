@@ -53,7 +53,7 @@ const AssignmentAdd = (props)  => {
 
     return (
         <>
-            <Button onClick={editOpen}>Add Assignment</Button>
+            <Button id="addAssginment" onClick={editOpen}>Add Assignment</Button>
             <Dialog open={isOpen}>
                 <DialogTitle>Add Assignment</DialogTitle>
                 <DialogContent style={{paddingTop:20}}>
