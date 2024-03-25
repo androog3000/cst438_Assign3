@@ -72,7 +72,7 @@ const AssignmentGrade = (props) => {
             <Dialog open={open} >
                 <DialogTitle>Assignment Grades</DialogTitle>
                 <DialogContent style={{ paddingTop: 20 }} >
-                    <h4>{editMessage}</h4>
+                    <h4 id="editMessage">{editMessage}</h4>
                     <table className="Center" >
                         <thead>
                         <tr>
@@ -92,8 +92,8 @@ const AssignmentGrade = (props) => {
                     </table>
                 </DialogContent>
                 <DialogActions>
-                    <Button color="secondary" onClick={editClose}>Close</Button>
-                    <Button color="primary" onClick={onSave}>Save</Button>
+                    <Button id="closeGrades" color="secondary" onClick={editClose}>Close</Button>
+                    <Button id="saveGrades" color="primary" onClick={onSave}>Save</Button>
                 </DialogActions>
             </Dialog>
 

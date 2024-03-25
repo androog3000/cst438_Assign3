@@ -144,7 +144,7 @@ const AssignmentsView = (props) => {
                 </thead>
                 <tbody>
                 {assignments.map((a) =>
-                    <tr key={a.id}>
+                    <tr id={a.id} key={a.id}>
                         <td>{a.id}</td>
                         <td>{a.title}</td>
                         <td>{a.dueDate}</td>

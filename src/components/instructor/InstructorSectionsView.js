@@ -60,7 +60,7 @@ const InstructorSectionsView = (props) => {
                 </thead>
                 <tbody>
                     {sections.map((s) => (
-                        <tr key={s.secNo}>
+                        <tr id={s.secNo} key={s.secNo}>
                             <td>{s.secNo}</td>
                             <td>{s.courseId}</td>
                             <td>{s.secId}</td>
