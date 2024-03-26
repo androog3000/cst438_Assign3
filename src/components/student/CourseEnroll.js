@@ -70,7 +70,7 @@ function CourseEnroll(props) {
     return(
         <div> 
             <h3>Open Sections</h3>   
-            <h4>{message}</h4>     
+            <h4 id="addMessage">{message}</h4>     
             <table className="Center" > 
                 <thead>
                 <tr>
