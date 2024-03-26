@@ -18,11 +18,11 @@ export const StudentLayout = () => {
   return (
     <>
       <nav>
-        <Link to="/">Home</Link> &nbsp;|&nbsp;   
-        <Link to="/schedule">VIew Class Schedule</Link>&nbsp;|&nbsp;  
-        <Link to="/addCourse">Enroll in a class</Link>&nbsp;|&nbsp;
-        <Link to="/studentAssignments">View Assignments</Link>&nbsp;|&nbsp;  
-        <Link to="/transcript">View Transcript</Link>
+        <Link id="home" to="/">Home</Link> &nbsp;|&nbsp;   
+        <Link id="schedule" to="/schedule">VIew Class Schedule</Link>&nbsp;|&nbsp;  
+        <Link id="addCourse" to="/addCourse">Enroll in a class</Link>&nbsp;|&nbsp;
+        <Link id="assignments" to="/studentAssignments">View Assignments</Link>&nbsp;|&nbsp;  
+        <Link id="transcript" to="/transcript">View Transcript</Link>
       </nav>
 
       <Outlet />
